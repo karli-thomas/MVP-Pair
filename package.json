@@ -1,0 +1,44 @@
+{
+  "name": "mvp-pair",
+  "version": "1.0.0",
+  "description": "A web application that pairs wine with food.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack -w",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karli-thomas/MVP-Pair.git"
+  },
+  "author": "Karli Thomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karli-thomas/MVP-Pair/issues"
+  },
+  "homepage": "https://github.com/karli-thomas/MVP-Pair#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.7",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/preset-react": "^7.16.7",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.1",
+    "@szhsin/react-menu": "^3.0.0",
+    "axios": "^0.26.1",
+    "css-loader": "^6.7.1",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "postcss-loader": "^6.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "style-loader": "^3.3.1"
+  }
+}

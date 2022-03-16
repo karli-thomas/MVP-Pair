@@ -1,0 +1,53 @@
+.app {
+  /* position: fixed; */
+  margin-right: 3%;
+  padding: 1%;
+}
+
+h1 {
+  font-family: Fredoka_Expanded-Light;
+}
+
+a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+  float: right;
+}
+
+a:hover {
+  background-color: #111;
+}
+
+.links {
+  /* float: left; */
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+  background-color: #333;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-right: 1px solid #bbb;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.links:last-child {
+  border-right: none;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.recipe {
+  display: grid;
+}
+
+.recipes {
+  display: grid;
+}
