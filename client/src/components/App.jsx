@@ -1,11 +1,11 @@
 import React from 'react';
 import Dishes from './Dishes.jsx';
 import Recipes from './Recipes.jsx';
+import Saved from './Saved.jsx';
 import '../styles.css';
 import wines from '../wines.json';
-import TOKEN from '../../../config.js';
 import axios from 'axios';
-import { Autocomplete, TextField } from '@mui/material';
+import { AppBar, Autocomplete, Button, TextField, Toolbar, Typography } from '@mui/material';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   showDishes(wine) {
-    axios.get(`https://api.spoonacular.com/food/wine/dishes?wine=${wine}&apiKey=${TOKEN.TOKEN}`)
+    axios.get(`/food/wine/dishes?wine=${wine}`)
       .then((res) => {
         if (res.data.status === 'failure') {
           this.setState({
@@ -57,7 +57,7 @@ class App extends React.Component {
   }
 
   showRecipes(ingredient) {
-    axios.get(`https://api.spoonacular.com/recipes/complexSearch?titleMatch=${ingredient}&apiKey=${TOKEN.TOKEN}`)
+    axios.get(`/recipes/complexSearch?titleMatch=${ingredient}`)
       .then((res) => {
         this.setState({
           view: 'recipes',
@@ -75,19 +75,24 @@ class App extends React.Component {
   render () {
     return (
       <div className='app'>
-        <div className='links'>
-          <h1>PAIR</h1>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={wines}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Select a Wine" />}
-            onChange={this.handleChange}
-          />
-          <a onClick={this.showSaved} href="Saved">Saved Recipes</a>
-          <a className='active' href="Search">Search</a>
-        </div>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" color="inherit" component="div">
+              PAIR
+            </Typography>
+
+            <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={wines}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Select a Wine" />}
+                onChange={this.handleChange}
+              />
+            <Button color="inherit" onClick={this.showSaved}>Saved Recipes</Button>
+          </Toolbar>
+        </AppBar>
+
         { this.state.view === "dishes" && <div>
           {this.state.pairingNote &&
             <div> {this.state.pairingNote} </div>
@@ -100,6 +105,7 @@ class App extends React.Component {
           </div>
         }
         { this.state.view === "saved" && <div>
+          <Saved saved={this.state.saved} />
           </div>
         }
       </div>

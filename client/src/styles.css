@@ -1,7 +1,7 @@
 .app {
   /* position: fixed; */
-  margin-right: 3%;
-  padding: 1%;
+  /* margin-right: 3%;
+  padding: 1%; */
 }
 
 h1 {
@@ -45,9 +45,17 @@ a:hover {
 }
 
 .recipe {
-  display: grid;
+  max-width: 200px;
+  margin: 8px;
+}
+
+.recipe img {
+  max-width: 200px;
 }
 
 .recipes {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
 }

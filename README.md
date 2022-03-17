@@ -4,6 +4,6 @@ This is a wine pairing and recipe finding web application. Select a wine that yo
 
 To start this application, fork and clone this repository. Inside the terminal, after navigating to this repository, run:
 
-npm install
-npm run watch
+npm install,
+npm run watch,
 npm start
