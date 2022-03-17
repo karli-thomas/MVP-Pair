@@ -5,7 +5,13 @@ import Saved from './Saved.jsx';
 import '../styles.css';
 import wines from '../wines.json';
 import axios from 'axios';
-import { AppBar, Autocomplete, Button, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Autocomplete, Box, Button, ThemeProvider, TextField, Toolbar, Typography, createTheme } from '@mui/material';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -24,6 +30,9 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.showRecipes = this.showRecipes.bind(this);
     this.showSaved = this.showSaved.bind(this);
+    this.fetchSaved = this.fetchSaved.bind(this);
+    this.saveRecipe = this.saveRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   handleChange(event, value, reason, details) {
@@ -66,48 +75,75 @@ class App extends React.Component {
       });
   }
 
+  fetchSaved() {
+    return axios.get("/saved")
+      .then(res => this.setState({
+        saved: res.data,
+      }))
+      .catch(err => console.log(err));
+  }
+
   showSaved() {
+    this.fetchSaved();
     this.setState({
       view: 'saved',
     });
   }
 
+  saveRecipe(recipe) {
+    return axios.post("/saved", {
+      id: recipe.id,
+      title: recipe.title,
+      imageUrl: recipe.image,
+    })
+      .then(this.fetchSaved)
+      .catch(console.log);
+  }
+
+  deleteRecipe(recipe) {
+    return axios.delete(`/saved/${recipe.id}`)
+      .then(this.fetchSaved)
+      .catch(console.log);
+  }
+
   render () {
     return (
       <div className='app'>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" color="inherit" component="div">
-              PAIR
-            </Typography>
-
-            <Autocomplete
+        <ThemeProvider theme={darkTheme}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" color="inherit" component="div">
+                PAIR
+              </Typography>
+              <Box sx={{ flexGrow: 1 }} />
+              <Autocomplete
+                // color='inherit'
                 disablePortal
                 id="combo-box-demo"
                 options={wines}
-                sx={{ width: 300 }}
+                sx={{ minWidth: 300, flexGrow: 1, padding: "14px" }}
                 renderInput={(params) => <TextField {...params} label="Select a Wine" />}
                 onChange={this.handleChange}
               />
-            <Button color="inherit" onClick={this.showSaved}>Saved Recipes</Button>
-          </Toolbar>
-        </AppBar>
+              <Box sx={{ flexGrow: 1 }} />
+              <Button color="inherit" onClick={this.showSaved}>Saved Recipes</Button>
+            </Toolbar>
+          </AppBar>
 
-        { this.state.view === "dishes" && <div>
-          {this.state.pairingNote &&
-            <div> {this.state.pairingNote} </div>
+          { this.state.view === "dishes" && <div>
+            {this.state.pairingNote &&
+              <div> {this.state.pairingNote} </div>
+            }
+            <Dishes dishes={this.state.dishes} showRecipes={this.showRecipes}/>
+            </div>
           }
-          <Dishes dishes={this.state.dishes} showRecipes={this.showRecipes}/>
-          </div>
-        }
-        { this.state.view === "recipes" && <div>
-            <Recipes recipes={this.state.recipes} />
-          </div>
-        }
-        { this.state.view === "saved" && <div>
-          <Saved saved={this.state.saved} />
-          </div>
-        }
+          { this.state.view === "recipes" &&
+              <Recipes recipes={this.state.recipes} saved={this.state.saved} saveRecipe={this.saveRecipe} deleteRecipe={this.deleteRecipe} />
+          }
+          { this.state.view === "saved" &&
+              <Recipes recipes={this.state.saved} saved={this.state.saved} saveRecipe={this.saveRecipe} deleteRecipe={this.deleteRecipe} />
+          }
+        </ThemeProvider>
       </div>
     )
   }

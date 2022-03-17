@@ -1,7 +1,5 @@
 .app {
-  /* position: fixed; */
-  /* margin-right: 3%;
-  padding: 1%; */
+  background-color: rgb(128, 126, 126);
 }
 
 h1 {
@@ -13,18 +11,20 @@ a {
   padding: 8px;
   background-color: #dddddd;
   float: right;
+
 }
 
 a:hover {
-  background-color: #111;
+  background-color: rgb(56, 132, 155);
+  cursor: pointer;
 }
-
+/*
 .links {
   /* float: left; */
-  margin: 0;
+  /* margin: 0;
   padding: 0;
   /* overflow: hidden; */
-  background-color: #333;
+  /* background-color: #333;
   display: block;
   color: white;
   text-align: center;
@@ -33,16 +33,16 @@ a:hover {
   border-right: 1px solid #bbb;
   position: sticky;
   top: 0;
-  width: 100%;
-}
+  width: 100%; */
+/* } */ */
 
-.links:last-child {
+/* .links:last-child {
   border-right: none;
-}
+} */
 
-.active {
+/* .active {
   background-color: #04AA6D;
-}
+} */ */
 
 .recipe {
   max-width: 200px;
