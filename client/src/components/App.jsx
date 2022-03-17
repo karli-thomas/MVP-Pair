@@ -35,9 +35,14 @@ class App extends React.Component {
     this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
+  componentDidMount() {
+    window.onpopstate = event => this.setState(event.state);
+  }
+
   handleChange(event, value, reason, details) {
     if (reason === "selectOption") {
 
+      history.pushState({view: "dishes", wine: value.id}, null, "#dishes");
       this.setState({
         wine: value.id,
         view: 'dishes',
@@ -66,6 +71,7 @@ class App extends React.Component {
   }
 
   showRecipes(ingredient) {
+    history.pushState({view: "recipes"}, null, "#recipes");
     axios.get(`/recipes/complexSearch?titleMatch=${ingredient}`)
       .then((res) => {
         this.setState({
@@ -84,6 +90,7 @@ class App extends React.Component {
   }
 
   showSaved() {
+    history.pushState({view: "saved"}, null, "#saved");
     this.fetchSaved();
     this.setState({
       view: 'saved',
